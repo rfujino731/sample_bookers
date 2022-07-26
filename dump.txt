@@ -1,0 +1,13 @@
+active_storage_attachments      ar_internal_metadata          
+active_storage_blobs            schema_migrations             
+active_storage_variant_records  users                         
+PRAGMA foreign_keys=OFF;
+BEGIN TRANSACTION;
+CREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar DEFAULT '' NOT NULL, "encrypted_password" varchar DEFAULT '' NOT NULL, "name" varchar, "reset_password_token" varchar, "reset_password_sent_at" datetime, "remember_created_at" datetime, "sign_in_count" integer DEFAULT 0 NOT NULL, "current_sign_in_at" datetime, "last_sign_in_at" datetime, "current_sign_in_ip" varchar, "last_sign_in_ip" varchar, "confirmation_token" varchar, "confirmed_at" datetime, "confirmation_sent_at" datetime, "unconfirmed_email" varchar, "failed_attempts" integer DEFAULT 0 NOT NULL, "unlock_token" varchar, "locked_at" datetime, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "introduction" text);
+INSERT INTO "users" VALUES(1,'hoge@abc.com','$2a$12$k3r3o0shgbym.Qvu.Qqd7eCEHzyFPwxfe34Xchh/mCZjK73vc0k7m','hogehogeman',NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,'2022-07-10 13:07:21.103946','2022-07-23 12:48:39.034151','introduction');
+INSERT INTO "users" VALUES(2,'test@abc.com','$2a$12$mKT7GhCcaPsvP0J6T7MLievbk2RQZrscFnC82rEI1RBdKhf4ORFCG','hogeman',NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,'2022-07-23 13:02:30.827858','2022-07-23 13:02:38.878906','自己紹介');
+CREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email");
+CREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token");
+CREATE UNIQUE INDEX "index_users_on_confirmation_token" ON "users" ("confirmation_token");
+CREATE UNIQUE INDEX "index_users_on_unlock_token" ON "users" ("unlock_token");
+COMMIT;

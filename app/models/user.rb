@@ -4,14 +4,34 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_one_attached :image
-  
-  def get_profile_image
+  has_one_attached :profile_image
+  has_many :books
+
+  # def get_profile_image
+  #   unless image.attached?
+  #     byebug
+  #     puts("####################################")
+  #     file_path = Rails.root.join('app/assets/images/no_image.jpeg')
+  #     image.attach(io: File.open(file_path), filename: 'no_image.jpeg', content_type: 'image/jpeg')
+  #   end
+  #     byebug
+  #     puts("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+  #     image.variant(resize_to_limit: [100, 100])
+  # end
+
+
+  def get_profile_image(width, height)
     unless profile_image.attached?
-      file_path = Rails.root.join('app/assets/images/no_image.jpg')
+      file_path = Rails.root.join('app/assets/images/sample-author1.jpg')
       profile_image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
     end
-    profile_image.variant(resize_to_limit: [100, 100]).processed
+      profile_image.variant(resize_to_limit: [width, height])
   end
+  
+  
+  def get_profile_image
+    (profile_image.attached?) ? profile_image : 'no_image.jpeg'
+  end
+
 
 end
