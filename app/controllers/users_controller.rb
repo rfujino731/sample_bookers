@@ -3,6 +3,7 @@ class UsersController < ApplicationController
     # byebug
     @user = User.find(params[:id])
     @book = Book.new
+    @books = @user.books
     # @user_image = @user.image
   end
 
