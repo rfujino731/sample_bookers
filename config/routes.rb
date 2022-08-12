@@ -13,7 +13,9 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [:index, :show, :edit, :update]
-  resources :books
+  resources :books do
+    resource :favorites, only: [:create, :destroy]
+  end
   # , only: [:new, :index, :show, :edit, :create, :update , :destroy]
   # get 'users/show'
   # get 'users/index'
