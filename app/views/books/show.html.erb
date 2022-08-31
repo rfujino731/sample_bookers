@@ -25,10 +25,26 @@
                 <td><%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success edit_book_#{@book.id}" %></td>
                 <td><%= link_to 'Destroy', @book, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_book_#{@book.id}"%></td>
               <% end %>
-            </tr>
-          </table>
+          </tr>
+        </table>
 
+        <p>コメント件数：<%= @book_comments.count %></p>
+        <% @book_comments.each do |book_comment| %>
+          <p>
+            <%= image_tag book_comment.user.get_profile_image, size:"50x50" %>
+            <%= book_comment.user.name %>
+            <%= book_comment.comment %>
+            <%= link_to 'Destroy', book_book_comment_path(@book, book_comment), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger " %>
+          </P>
+        <% end %>
 
+        <%= form_with model: [@book, @book_comment] do |f| %>
+          <div class="form-group">
+            <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに", class: "form-control book_comment" %>
+            <%= f.hidden_field :book_id, value: @book.id %>
+          </div>
+          <%= f.submit "送信する" %>
+        <% end %>
     </div>
   </div>
 </div>
